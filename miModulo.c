@@ -68,9 +68,6 @@ static int device_open(struct inode *inode, struct file *filp)
   return SUCCESS;
 }
 
-/*
- * Called when a process closes the device file.
- */
 static int device_release(struct inode *inode, struct file *filp)
 {
   module_put(THIS_MODULE);
@@ -112,22 +109,17 @@ static ssize_t device_write(struct file *filp, const char *tmp, size_t length, l
 
   return i;
 }
-
+//Idea del algoritmo en https://www.geeksforgeeks.org/caesar-cipher-in-cryptography/
 static int encriptarCesar(void){
     int s = 3;
-    // traverse msg 
     int i;
     for(i=0;i<BUF_LEN;i++){ 
-      // apply transformation to each character 
-      // Encrypt Uppercase letters 
       if ((msg[i])>=65 && (msg[i])<=90 ){
         msg[i] = (msg[i]+s-65)%26 +65; 
       }
-      // Encrypt Lowercase letters 
       else{
           msg[i] = (msg[i]+s-97)%26 +97; 
       }
-      //printk(KERN_INFO "Buffer i:%d  contenido: %s\n", i, msg[i]);
     } 
   return 0;
 }
